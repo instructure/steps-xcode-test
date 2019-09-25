@@ -227,7 +227,7 @@ func runBuild(buildParams models.XcodeBuildParamsModel, outputTool string) (stri
 	if buildParams.DisableIndexWhileBuilding {
 		xcodebuildArgs = append(xcodebuildArgs, "COMPILER_INDEX_STORE_ENABLE=NO")
 	}
-	xcodebuildArgs = append(xcodebuildArgs, "build", "-destination", buildParams.DeviceDestination)
+	xcodebuildArgs = append(xcodebuildArgs, "build-for-testing", "-destination", buildParams.DeviceDestination)
 
 	log.Infof("Building the project...")
 
@@ -294,7 +294,7 @@ func runTest(buildTestParams models.XcodeBuildTestParamsModel, outputTool, xcpre
 	// leads the project to be compiled twice and increase the duration
 	// Related issue link: https://github.com/bitrise-steplib/steps-xcode-test/issues/55
 	if buildTestParams.BuildBeforeTest {
-		xcodebuildArgs = append(xcodebuildArgs, "build")
+		xcodebuildArgs = append(xcodebuildArgs, "build-for-testing")
 	}
 
 	// Disable indexing during the build.
